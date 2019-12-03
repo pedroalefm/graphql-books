@@ -1,8 +1,13 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql'); //middleware single route
 const GraphQLSchema = require('./schema/schema');
+const mongoose = require('mongoose');
 
 const app = express();
+mongoose.connect('mongodb+srv://admin:admin@cluster0-1cudz.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connection.once('open', () => {
+	console.log('Conectado ao banco');
+});
 
 app.use(
 	'/graphql',
