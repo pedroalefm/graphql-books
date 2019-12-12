@@ -14,6 +14,7 @@ const BookType = new GraphQLObjectType({
 			type: Author,
 			resolve(parent, args) {
 				//busca para achar no banco
+				return authorSchema.findById(parent.authorId);
 			},
 		},
 	}),
@@ -28,7 +29,9 @@ const Author = new GraphQLObjectType({
 		books: {
 			type: new GraphQLList(BookType),
 			resolve(parent, args) {
-				//busca no banco
+				return bookSchema.find({
+					authorId: parent.id,
+				});
 			},
 		},
 	}),
@@ -42,25 +45,26 @@ const RootQuery = new GraphQLObjectType({
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
 				// Código para pegar dado vindo do banco
+				return bookSchema.findById(args.id);
 			},
 		},
 		author: {
 			type: Author,
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
-				//busca no banco
+				return authorSchema.findById(args.id);
 			},
 		},
 		books: {
 			type: new GraphQLList(BookType),
 			resolve(parent, args) {
-				// return books;
+				return bookSchema.find({});
 			},
 		},
 		authors: {
 			type: new GraphQLList(Author),
 			resolve(parent, args) {
-				// return authors;
+				return authorSchema.find({});
 			},
 		},
 	},

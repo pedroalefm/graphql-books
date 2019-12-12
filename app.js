@@ -4,7 +4,7 @@ const GraphQLSchema = require('./schema/schema');
 const mongoose = require('mongoose');
 
 const app = express();
-mongoose.connect('mongodb+srv://admin:admin@graphql-1y3yt.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://test:test@cluster0-1y3yt.mongodb.net/test?retryWrites=true&w=majority');
 mongoose.connection.once('open', () => {
 	console.log('Conectado ao banco');
 });
